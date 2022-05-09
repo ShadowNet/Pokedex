@@ -12,8 +12,9 @@ private let reuseIdentifier = "PokeCell"
 class PokeCell: UICollectionViewCell {
    
     //@IBOutlet weak var sprite: UIImageView!
-    @IBOutlet weak var sprite: UIImageView!
+  //  @IBOutlet weak var sprite: UIImageView!
     
+    @IBOutlet weak var sprite: UIImageView!
     @IBOutlet weak var label: UILabel!
     //@IBOutlet weak var label: UILabel!
     var pokemon: Pokemon!

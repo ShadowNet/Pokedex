@@ -51,7 +51,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="105" height="105"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1" translatesAutoresizingMaskIntoConstraints="NO" id="B5d-RV-shl">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1" translatesAutoresizingMaskIntoConstraints="NO" id="B5d-RV-shl" customClass="PokeCell.swift">
                                                     <rect key="frame" x="0.0" y="0.0" width="105" height="80"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="80" id="qlN-Aq-Xfh"/>
@@ -80,7 +80,7 @@
                                         <size key="customSize" width="105" height="105"/>
                                         <connections>
                                             <outlet property="label" destination="zn1-31-aXH" id="ZB9-qA-uap"/>
-                                            <outlet property="sprite" destination="6xc-VQ-fMa" id="VkF-2c-8xl"/>
+                                            <outlet property="sprite" destination="B5d-RV-shl" id="Xow-Bs-dif"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
