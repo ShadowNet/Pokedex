@@ -7,6 +7,8 @@
 
 import Foundation
 import Alamofire
+import SwiftyJSON
+
 
 // This is the class that will hold all the detail for each pokemon
 class Pokemon {
@@ -98,21 +100,21 @@ class Pokemon {
     var pokedexId: Int {
         return _pokedexId
     }
-    
-    // Initialize the variables so can pass the data
-    init(name: String, pokedexId: Int){
-        self._name = name
-        self._pokedexId = pokedexId
-        
-        _pokemonUrl = "\(URL_BASE)\(URL_POKEMON)\(self.pokedexId)/"
-    }
-    
-    
+   
+    init(name: String, pokedexId: Int){ self._name = name; self._pokedexId = pokedexId
+
+    _pokemonUrl = "\(URL_BASE)\(URL_POKEMON)\(self.pokedexId)/" }
+
     func downloadPokemonDetails(completed: DownloadComplete) {
+
+    // Initialization of variables to pass the data
         
-        Alamofire.request(.GET, _pokemonUrl).responseJSON{ (response) -> Void in
-            
-            print(response.result) //SUCCESS
+       //-> init(name: String, pokedexId: Int){ self._name = name; self._pokedexId = pokedexId; _pokemonUrl = "\(URL_BASE)\(URL_POKEMON)\(self.pokedexId)/" }
+
+    // This function is called after successful request completion
+
+        func downloadPokemonDetails(completed: DownloadComplete) { Alamofire.request(_pokemonUrl ).responseJSON{ [self] (response) -> Void in print(response.result) //SUCCESS } }
+    
             
             if let dict = response.result.value as? Dictionary<String, AnyObject>{
                 
@@ -136,21 +138,21 @@ class Pokemon {
                     self._defense = "\(defense)"
                 }
                 
-                print(self._defense)
-                print(self._height)
-                print(self._weight)
-                print(self._attack)
+                print(self._defense as Any)
+                print(self._height as Any)
+                print(self._weight as Any)
+                print(self._attack as Any)
                 
                 if let types = dict["types"] as? [Dictionary<String, String>], types.count > 0 {
                     
                     if let name = types[0]["name"] {
                         
-                        self._type = name.capitalizedString
+                        self._type = name.capitalized
                     }
                     
                     if types.count > 1 {
                         
-                        var x = 1; x < types.count; x++ {
+                        var x = 1; x < types.count; ++{
                             
                             if let name = types[x]["name"] {
                                 
@@ -162,7 +164,7 @@ class Pokemon {
                         self._type = ""
                     }
                     
-                    print(self._type)
+                    print(self._type as Any)
                     
                     if let descArr = dict["descriptions"] as? [Dictionary<String, String>], descArr.count > 0{
                         
@@ -171,16 +173,16 @@ class Pokemon {
                             // here is where alamo goes
                             let nsurl = NSURL(string: "\(URL_BASE)\(url)")!
                             
-                            Alamofire.request(.GET, nsurl).responseJSON{ (response) -> Void in
+                            Alamofire.request(_pokemonUrl).responseJSON{ (response) -> Void in
                                 
                                 if let descDict = response.result.value as? Dictionary<String, AnyObject>{
                                  
                                     if let description = descDict["description"] as? String {
                                         
-                                        let newDescription = description.stringByReplacingOccurrencesOfString("POKMON", withString: "Pokemon")
+                                        let newDescription = description.replacingOccurrences(of:"POKMON", with: "Pokemon"),
                                         
                                         self._description = newDescription
-                                        print(self._description)
+                                        print(self._description as Any)
                                     }
                                 }
                                 
@@ -204,8 +206,8 @@ class Pokemon {
                                 
                                 if let uri = evolutions[0]["resource_uri"] as? String {
                                     
-                                    let newStr = uri.stringByReplacingOccurrencesOfString("/api/v1/pokemon/", withString: "")
-                                    let num = newStr.stringByReplacingOccurrencesOfString("/", withString: "")
+                                    let newStr = uri.replacingOccurrences(of: "/api/v1/pokemon/", with: "")
+                                    let num = newStr.replacingOccurrences(of: "/api/v1/pokemon/", with: "")
                                     
                                     self._nextEvolutionId = num
                                     self._nextEvolutionTxt = to
@@ -225,9 +227,9 @@ class Pokemon {
                                         
                                     }
                                     
-                                    print(self._nextEvolutionTxt)
-                                    print(self._nextEvolutionLevel)
-                                    print(self._nextEvolutionId)
+                                    print(self._nextEvolutionTxt as Any)
+                                    print(self._nextEvolutionLevel as Any)
+                                    print(self._nextEvolutionId as Any)
                                 }
                             }
                         }
@@ -247,4 +249,5 @@ class Pokemon {
     }
     
     
+    }
 }
